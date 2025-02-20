@@ -1,0 +1,36 @@
+name: Cordova Android Build
+
+# 设置触发条件为手动执行
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 2. 设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # 指定 Node.js 版本
+      # 3. 安装 Cordova
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      # 4. 添加 Android 平台
+      - name: Add Android platform
+        run: cordova platform add android
+      
+      # 5. 构建 Android APK
+      - name: Build Android APK
+        run: cordova build android
+
+      # 6. 上传 APK 文件到 Artifacts
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug.apk
+          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
