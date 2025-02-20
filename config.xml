@@ -9,4 +9,5 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
 	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
+	<engine name="android" spec="^11.0.0" />
 </widget>
